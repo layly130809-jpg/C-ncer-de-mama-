@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cáncer de Mama - Información y Prevención</title>
+    <style>
+        /* ── Pantalla de presentación ── */
+        #pantalla-intro {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #e91e63, #c2185b, #880e4f);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 30px 20px;
+            text-align: center;
+            animation: desvanece 0.8s ease 3.8s forwards;
+        }
+
+        #pantalla-intro .lazo-grande {
+            font-size: 4em;
+            animation: latido 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        #pantalla-intro .linea {
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        #pantalla-intro .linea-1 {
+            font-size: 0.85em;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: normal;
+            animation: subeYaparece 0.6s ease 0.3s forwards;
+        }
+
+        #pantalla-intro .linea-2 {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 8px 0;
+            animation: subeYaparece 0.6s ease 0.8s forwards;
+        }
+
+        #pantalla-intro .linea-3 {
+            font-size: 1.05em;
+            font-weight: bold;
+            animation: subeYaparece 0.6s ease 1.3s forwards;
+        }
+
+        #pantalla-intro .linea-4 {
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #ffe4ec;
+            margin-top: 10px;
+            animation: subeYaparece 0.6s ease 1.8s forwards;
+        }
+
+        #pantalla-intro .barra {
+            width: 0%;
+            height: 3px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 3px;
+            margin-top: 30px;
+            animation: cargaBarra 2.5s ease 1.5s forwards;
+        }
+
+        @keyframes subeYaparece {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes desvanece {
+            to { opacity: 0; pointer-events: none; }
+        }
+
+        @keyframes latido {
+            0%, 100% { transform: scale(1); }
+            50%       { transform: scale(1.15); }
+        }
+
+        @keyframes cargaBarra {
+            to { width: 80%; }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff5f8;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #e91e63;
+            color: white;
+            padding: 20px 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+
+        section {
+            padding: 20px 15px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h2 {
+            color: #e91e63;
+            margin: 20px 0 10px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 12px;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        ul li {
+            margin-bottom: 8px;
+        }
+
+        .alerta {
+            background-color: #ffe4ec;
+            border-left: 5px solid #e91e63;
+            padding: 12px 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        /* Sección histórica */
+        .historia-card {
+            background: linear-gradient(135deg, #fff0f5, #ffe4ec);
+            border: 2px solid #f48fb1;
+            border-radius: 12px;
+            padding: 18px 15px;
+            margin: 15px 0;
+        }
+
+        .historia-card .epoca {
+            display: inline-block;
+            background-color: #e91e63;
+            color: white;
+            font-size: 0.78em;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .historia-card h3 {
+            color: #c2185b;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .historia-linea-tiempo {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .historia-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .historia-item .punto {
+            min-width: 36px;
+            height: 36px;
+            background-color: #e91e63;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1em;
+            margin-top: 2px;
+        }
+
+        .historia-item .texto-item p {
+            margin-bottom: 4px;
+        }
+
+        .historia-item .texto-item .año {
+            font-size: 0.8em;
+            color: #e91e63;
+            font-weight: bold;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #f8bbd0;
+            margin: 25px 0;
+        }
+
+        /* Tabla responsive */
+        .tabla-contenedor {
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+
+        table thead {
+            background-color: #e91e63;
+            color: white;
+        }
+
+        table th, table td {
+            border: 1px solid #f8bbd0;
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        table tbody tr:nth-child(even) {
+            background-color: #ffe4ec;
+        }
+
+        table td:first-child {
+            font-weight: bold;
+            color: #c2185b;
+            white-space: nowrap;
+        }
+
+        /* Símbolo del listón */
+        .lazo {
+            background-color: #ffe4ec;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .lazo .icono {
+            font-size: 2.5em;
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: #e91e63;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #e91e63;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 30px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── Pantalla de presentación ── -->
+<div id="pantalla-intro">
+    <div class="lazo-grande">🎗️</div>
+    <p class="linea linea-1">Presentado por</p>
+    <p class="linea linea-2">Animación Digital</p>
+    <p class="linea linea-3">y Laboratoristas Clínicos</p>
+    <p class="linea linea-4">CECyTEM Valle de Chalco 1</p>
+    <div class="barra"></div>
+</div>
+
+<header>
+    <h1>🎗️ Cáncer de Mama</h1>
+    <p>Información, prevención y detección temprana</p>
+</header>
+
+<section>
+
+    <!-- ── HISTORIA ── -->
+    <h2>📜 El primer caso de cáncer de mama en la historia</h2>
+
+    <div class="historia-card">
+        <span class="epoca">⏳ Circa 2200 a.C. — Antiguo Egipto</span>
+        <h3>La mujer de Qubbet el-Hawa</h3>
+        <p>El caso de cáncer de mama más antiguo que se conoce corresponde al esqueleto de una <strong>mujer de entre 30 y 40 años</strong>, perteneciente a la clase dirigente de la antigua ciudad de <strong>Elefantina</strong>, en la región de Asuán, Egipto. Murió alrededor del año <strong>2200 a.C.</strong>, hace más de 4,000 años.</p>
+        <p>Sus restos fueron descubiertos en la necrópolis de <em>Qubbet el-Hawa</em> por investigadores de las universidades españolas de Granada y Jaén, quienes identificaron en sus huesos las marcas características de un cáncer de mama que se había extendido por su cuerpo.</p>
+        <p>Lo más sorprendente del hallazgo fue que las características del tumor son <strong>exactamente las mismas</strong> que las del cáncer de mama actual, lo que demuestra que esta enfermedad ha cambiado muy poco en cuatro milenios.</p>
+    </div>
+
+    <h2>📖 Línea del tiempo histórica</h2>
+
+    <div class="historia-linea-tiempo">
+        <div class="historia-item">
+            <div class="punto">🏛️</div>
+            <div class="texto-item">
+                <p class="año">~ 2200 a.C.</p>
+                <p>Primer caso físico comprobado: la mujer de Qubbet el-Hawa, Egipto.</p>
+            </div>
+        </div>
+        <div class="historia-item">
+            <div class="punto">📜</div>
+            <div class="texto-item">
+                <p class="año">~ 1600 a.C.</p>
+                <p>El <strong>Papiro Edwin Smith</strong>, atribuido al médico Imhotep, describe por escrito tumores en la mama y señala que no había tratamiento conocido para ellos. Es el primer documento médico escrito sobre el tema.</p>
+            </div>
+        </div>
+        <div class="historia-item">
+            <div class="punto">🏺</div>
+            <div class="texto-item">
+                <p class="año">~ 400 a.C.</p>
+                <p><strong>Hipócrates</strong> acuñó el término <em>"karkinos"</em> (cangrejo) al observar cómo los vasos sanguíneos rodeaban el tumor igual que las patas de un crustáceo. De ahí viene la palabra "cáncer".</p>
+            </div>
+        </div>
+        <div class="historia-item">
+            <div class="punto">🔬</div>
+            <div class="texto-item">
+                <p class="año">1882 d.C.</p>
+                <p>El cirujano <strong>William Halsted</strong> desarrolló la primera mastectomía radical moderna, revolucionando el tratamiento quirúrgico del cáncer de mama.</p>
+            </div>
+        </div>
+        <div class="historia-item">
+            <div class="punto">💊</div>
+            <div class="texto-item">
+                <p class="año">Siglo XX</p>
+                <p>Con el desarrollo de la quimioterapia, radioterapia y terapias hormonales, las tasas de supervivencia aumentaron considerablemente en todo el mundo.</p>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <h2>¿Qué es el cáncer de mama?</h2>
+    <p>El cáncer de mama es una enfermedad en la que las células de la mama crecen de manera anormal y descontrolada. Puede afectar tanto a mujeres como a hombres, aunque es más frecuente en mujeres. Las células cancerosas suelen originarse en los conductos galactóforos o en los lobulillos que producen leche.</p>
+
+    <div class="alerta">
+        <strong>⚠️ Dato importante:</strong> La detección temprana aumenta significativamente las posibilidades de tratamiento exitoso.
+    </div>
+
+    <h2>Medidas de prevención</h2>
+    <ul>
+        <li>Realizar autoexploraciones mamarias mensuales.</li>
+        <li>Acudir a revisiones médicas periódicas.</li>
+        <li>Mantener una alimentación saludable y actividad física regular.</li>
+        <li>Evitar el consumo excesivo de alcohol y tabaco.</li>
+    </ul>
+
+    <hr>
+
+    <h2>🎀 Mes de Sensibilización (Octubre)</h2>
+
+    <div class="lazo">
+        <div class="icono">🎗️</div>
+        <p><strong>Cada octubre</strong> se celebra en todo el mundo el Mes de Sensibilización del Cáncer de Mama, aumentando la atención y el apoyo prestados a la concientización, detección temprana, tratamiento y cuidados paliativos.</p>
+    </div>
+
+    <p>Durante este mes se invita a portar un listón o moño rosa, símbolo internacional de compromiso para crear conciencia sobre el cáncer de mama y mostrar apoyo moral a las mujeres con esta enfermedad.</p>
+
+    <p>El primer listón rosa fue utilizado en el otoño de <strong>1991</strong>, cuando la Fundación Susan G. Komen los obsequió a los participantes de una carrera en la ciudad de Nueva York, en alusión a los sobrevivientes del cáncer de mama.</p>
+
+    <p>A partir de dicho evento se utiliza el símbolo color rosa, que hace referencia a lo femenino y se deriva del listón rojo relacionado con la concientización del SIDA.</p>
+
+    <hr>
+
+    <h2>¿Qué tipos de tratamiento existen?</h2>
+
+    <div class="tabla-contenedor">
+        <table>
+            <thead>
+                <tr>
+                    <th>Tratamiento</th>
+                    <th>Descripción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Radioterapia</td>
+                    <td>Tratamiento con rayos o partículas de alta energía que destruyen las células cancerosas.</td>
+                </tr>
+                <tr>
+                    <td>Quimioterapia</td>
+                    <td>Tratamiento con medicamentos contra el cáncer que se puede administrar por vía intravenosa o por vía oral.</td>
+                </tr>
+                <tr>
+                    <td>Paliativo</td>
+                    <td>Tiene la finalidad de aliviar los síntomas de los pacientes en los cuales no se espera que cure la enfermedad, o que existe una respuesta parcial al tratamiento.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>Los tratamientos pueden clasificarse en grupos con base en su funcionamiento:</p>
+
+    <h2>Terapia Local o Sistémica</h2>
+    <p><strong>La terapia local</strong> tiene la intención de tratar al tumor en donde se localiza, sin afectar el resto del cuerpo. La radioterapia y la cirugía son ejemplos.</p>
+    <p><strong>La terapia sistémica</strong> se refiere a los fármacos que pueden ser recibidos vía oral o por vía intravenosa, como la quimioterapia, terapia hormonal y terapia dirigida.</p>
+
+    <h2>Terapia Adyuvante o Neo-adyuvante</h2>
+    <p>A las pacientes a quienes no se detecta cáncer después de haber sido operadas, con frecuencia se les ofrece un tratamiento adicional para asegurarse de que el cáncer no volverá; esto se llama <strong>terapia adyuvante</strong>.</p>
+    <p>Algunas pacientes reciben tratamiento como quimioterapia o terapia hormonal <em>antes</em> de la cirugía, con el objetivo de reducir el tamaño del tumor para realizar una cirugía menos extensa. A esto se le conoce como <strong>terapia neo-adyuvante</strong>.</p>
+
+    <hr>
+
+    <h2>Más información</h2>
+    <p>Puedes consultar más detalles en sitios oficiales como:</p>
+    <ul>
+        <li><a href="https://www.cdc.gov/breast-cancer/es/index.html" target="_blank">CDC - Cáncer de mama</a></li>
+        <li><a href="https://www.gob.mx/salud/acciones-y-programas/cancer-de-mama-informacion-general" target="_blank">Secretaría de Salud México</a></li>
+    </ul>
+
+</section>
+
+<footer>
+    <p>🎗️ © 2026 Concientización sobre Cáncer de Mama</p>
+</footer>
+
+</body>
+</html>
